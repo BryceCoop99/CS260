@@ -1,0 +1,154 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Verdana; /*Just a comment */
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navbar-item {
+  display: flex;
+  justify-content: center;
+  font-size: 1.3rem;
+  
+  width: 500px;
+  background-color: gray;
+  border: 1px solid white;
+}
+
+.navbar-item a {
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  padding: 20px 80px;
+}
+
+.home {
+  background-color: red;
+}
+
+.experience {
+  background-color: orange;
+}
+
+.goals {
+  background-color: yellow;
+}
+
+.menu {
+  background-color: green;
+}
+
+.content {
+  background-color: white;
+  color: black;
+}
+
+.button {
+  color: #FFF;
+  background-color: #5800FF;
+  font-weight: bold;
+  padding: 20px;
+  text-align: center;
+  border: 2px solid #5D6063;
+  border-radius: 50px;
+  
+  width: 200px;
+  box-sizing: border-box;  /* Add this */
+  margin: 20px auto; /* Vertical  Horizontal */
+}
+
+.navbar-button {
+  font-size: 1.1rem;
+}
+
+.header-desc {
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.break {
+  margin: 10px 0 0 0;
+}
+
+
+
+a:hover {
+  color: purple;
+}
+
+a:visited:hover {
+  color: darkgray;
+}
+
+.button:hover {
+  background-color: #0096FF;
+}
+
+.button:active {
+  background-color: #00D7FF;
+}
+
+.button:first-of-type {
+  background-color: darkblue;
+}
+
+.button:first-of-type:hover {
+  background-color: #0096FF;
+}
+
+.button:first-of-type:active {
+  background-color: #00D7FF;
+}
+
+
+
+@media only screen and (max-width: 900px) {
+  .navbar {
+    flex-wrap: wrap;
+  }
+  
+  .navbar-item {
+    display: flex;
+    font-size: 1.3rem;
+  }
+  
+  .navbar-item a {
+    text-decoration: none;
+    color: white;
+    padding: 20px;
+  }
+  .home,
+  .experience,
+  .goals,
+  .menu {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+/* Only the .sidebar parent with 1 child away from .button class elements will have these styles*/
+.sidebar < .button:first-of-type {
+  
+}
+
+/* Specific to element with id:button-1 */
+#button-1 {
+  margin: 0;
+}
+
+/*Order of specificity of selectors from greatest to least:
+#button-2
+.button:link
+a:link and .synopsis em (equal)
+.button
+a

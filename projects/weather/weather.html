@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>Provo Weather</title>
+    </head>
+    <body>
+    <form>
+        Enter A City: <input type="text" id="cityField" value=""><br>
+        <span id="messageHandler"></span>
+        <input id="refreshButton" type="submit" value="Submit">
+    </form>
+    
+
+    </body>
+    <script>
+    // API KEY 0a4465f7863c40abab3202739220510
+      document.getElementById("refreshButton").addEventListener("click", function(event) {
+        event.preventDefault();
+        const cityInput = document.getElementById("cityField").value;
+        console.log("HI");
+        const url = "https://api.weatherapi.com/v1/current.json"
+        + "?key=0a4465f7863c40abab3202739220510" + "&q=" + cityInput
+        fetch(url)
+          .then(function(response) {
+            let message;
+            if (!response.ok) {
+              message = document.createElement("div");
+              message.appendChild(document.createTextNode("No matching location found"));
+            } else {
+              console.log("Hit! 2");
+              message = document.createElement("div");
+              message.appendChild(document.createTextNode(capitalizeFirstLetter(cityInput)));
+            }
+            const messageHandler = document.getElementById("messageHandler");
+            messageHandler.textContent = "";
+            messageHandler.appendChild(message);
+            
+            return response.json();
+          }).then(function(json) {
+            console.log(json);
+            console.log(json[0]);
+            
+          }).catch(function() {
+            console.log("error in the request");
+            let message = document.createElement("div");
+            message.appendChild(document.createTextNode("No matching location found"));
+            const messageHandler = document.getElementById("messageHandler");
+            messageHandler.textContent = "";
+            messageHandler.appendChild(message);
+        });
+      });
+      
+      function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+      
+        // document.getElementById("cityField").addEventListener("keyup", function(event) {
+        //   event.preventDefault();
+        //   const url = "staticCity.txt";
+        //   fetch(url)
+        //     .then(function(response) {
+        //       return response.json();
+        //     }).then(function(json) {	
+        //       const everything = document.createElement("ul");
+        //       for (let i = 0; i < json.length; i++) {
+        //         const value = json[i].city;
+        //         const item = document.createElement("li");
+        //         item.appendChild(document.createTextNode(value));
+        //         everything.appendChild(item);
+        //       };
+              
+        //       const txtHint = document.getElementById("txtHint");
+        //       txtHint.textContent = "";
+        //       txtHint.appendChild(everything);
+        //     });
+          // const value = document.getElementById("cityField").value;
+          // const txtHint = document.getElementById("txtHint");
+          // txtHint.textContent = "";
+          // txtHint.appendChild(document.createTextNode(value));
+        
+    </script>
+    
+</html>

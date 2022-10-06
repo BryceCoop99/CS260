@@ -1,0 +1,72 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <link rel='stylesheet' href='styles.css'/>
+        <meta charset='UTF-8'/>
+    </head>
+    
+    <body>
+      
+        <h1>Mountains</h1>
+        <table id="mountains">
+        </table>
+        
+    </body>
+    
+    <script>
+      const MOUNTAINS = [
+        {name: "Kilimanjaro", height: 5895, place: "Tanzania"},
+        {name: "Everest", height: 8848, place: "Nepal"},
+        {name: "Mount Fuji", height: 3776, place: "Japan"},
+        {name: "Vaalserberg", height: 323, place: "Netherlands"},
+        {name: "Denali", height: 6168, place: "United States"},
+        {name: "Popocatepetl", height: 5465, place: "Mexico"},
+        {name: "Mont Blanc", height: 4808, place: "Italy/France"}
+      ];
+    
+      /* THIS IS DYNAMIC!! CAN USE FOR OTHER ASSIGNMENTS!! */
+      const parent = document.getElementById("mountains");
+      
+      let headerObject = MOUNTAINS[0];
+      console.log(Object.keys(headerObject));
+      
+      let headerRow = document.createElement("tr");
+      let listOfProperties = [];
+      
+      for (let property in headerObject) {
+        let newProp = capitalizeFirstLetter(property);
+        listOfProperties.push(property);
+        let headerKey = document.createElement("th");
+        let headerText = document.createTextNode(capitalizeFirstLetter(newProp));
+        headerKey.appendChild(headerText);
+        headerRow.appendChild(headerKey);
+      }
+      parent.appendChild(headerRow);
+      
+      MOUNTAINS.forEach(element => {
+        
+        let row = document.createElement("tr");
+        
+        for (let i=0; i < listOfProperties.length; i++) {
+          let cell = document.createElement("th");
+          let textString = element[listOfProperties[i]];
+          let text = document.createTextNode(textString);
+          if (containsNumber(textString)) {
+            cell.style.textAlign = "right";
+          }
+          cell.appendChild(text);
+          row.appendChild(cell);
+        }
+        
+        parent.appendChild(row);
+        
+      });
+      
+      function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+      function containsNumber(string) {
+        return /[0-9]/.test(string);
+      }
+    </script>
+</html>

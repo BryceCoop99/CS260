@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    	<!-- Metadata goes here -->
+    	<title>My Website</title>
+    	<meta charset='UTF-8'/>
+        <!-- The order of link elements matters. The top-most link is the base. The lower trumps the higher. -->
+        <link rel="stylesheet" href="styles.css"/> 
+    </head>
+    <body class="page">
+      <div class="navbar">
+      	<div class="navbar-item home">
+      	    <a href="index.html">Home</a>
+  	    </div>
+      	<div class="navbar-item experience">
+      	    <a href="my-experience.html">Experience</a>
+  	    </div>
+      	<div class="navbar-item goals">
+      	  <a href="my-goals.html">Goals</a>
+      	</div>
+      	<div class="navbar-item menu">
+      	  <a id="navbar-menu">Menu</a>
+    	  </div>
+      </div>
+      <div class="content">
+      	<h1>Welcome to My Website!</h1>
+      	<p class="header-desc">This website will demonstrate basic <em>HTML</em> examples and practices.</p>
+      	
+      	<h2>What have I finished?</h2>
+      	<ul>
+      		<li>Built <strong>3 pages</strong>, linked to each other.</li>
+      		<li>Applied basic html tags on each page.</li>
+      	</ul>
+      	
+      	<p>Here are some fun images! SVG's (the last image) seem to be the most important
+      	as they scale without loss of quality! However, they aren't as useful when 
+      	the images contain <em>text</em> in them.</p>
+  	    <img src="images/mochi.jpg" alt="A JPG image"/>
+  	    <img src="images/mochi.gif" alt="A GIF"/>
+  	    <img src="images/mochi.png" alt="A PNG image"/>
+  	    <img src="images/mochi.svg" alt="A SVG image" width="150"/>
+      </div>
+      <div class="footer">
+        Footer
+      </div>
+    </body>
+</html>
