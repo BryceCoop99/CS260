@@ -1,82 +1,129 @@
 <html>
-    <head>
-        <title>Provo Weather</title>
-    </head>
-    <body>
-    <form>
-        Enter A City: <input type="text" id="cityField" value=""><br>
-        <span id="messageHandler"></span>
-        <input id="refreshButton" type="submit" value="Submit">
-    </form>
-    
-
-    </body>
-    <script>
-    // API KEY 0a4465f7863c40abab3202739220510
-      document.getElementById("refreshButton").addEventListener("click", function(event) {
-        event.preventDefault();
-        const cityInput = document.getElementById("cityField").value;
-        console.log("HI");
-        const url = "https://api.weatherapi.com/v1/current.json"
-        + "?key=0a4465f7863c40abab3202739220510" + "&q=" + cityInput
-        fetch(url)
-          .then(function(response) {
-            let message;
-            if (!response.ok) {
-              message = document.createElement("div");
-              message.appendChild(document.createTextNode("No matching location found"));
-            } else {
-              console.log("Hit! 2");
-              message = document.createElement("div");
-              message.appendChild(document.createTextNode(capitalizeFirstLetter(cityInput)));
-            }
-            const messageHandler = document.getElementById("messageHandler");
-            messageHandler.textContent = "";
-            messageHandler.appendChild(message);
-            
-            return response.json();
-          }).then(function(json) {
-            console.log(json);
-            console.log(json[0]);
-            
-          }).catch(function() {
-            console.log("error in the request");
-            let message = document.createElement("div");
-            message.appendChild(document.createTextNode("No matching location found"));
-            const messageHandler = document.getElementById("messageHandler");
-            messageHandler.textContent = "";
-            messageHandler.appendChild(message);
-        });
-      });
-      
-      function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      }
-      
-        // document.getElementById("cityField").addEventListener("keyup", function(event) {
-        //   event.preventDefault();
-        //   const url = "staticCity.txt";
-        //   fetch(url)
-        //     .then(function(response) {
-        //       return response.json();
-        //     }).then(function(json) {	
-        //       const everything = document.createElement("ul");
-        //       for (let i = 0; i < json.length; i++) {
-        //         const value = json[i].city;
-        //         const item = document.createElement("li");
-        //         item.appendChild(document.createTextNode(value));
-        //         everything.appendChild(item);
-        //       };
-              
-        //       const txtHint = document.getElementById("txtHint");
-        //       txtHint.textContent = "";
-        //       txtHint.appendChild(everything);
-        //     });
-          // const value = document.getElementById("cityField").value;
-          // const txtHint = document.getElementById("txtHint");
-          // txtHint.textContent = "";
-          // txtHint.appendChild(document.createTextNode(value));
+  <head>
+    <title>Provo Weather</title>
+    <meta charset='UTF-8'/>
+    <link rel='stylesheet' href='styles.css'/>
+  </head>
+  <body class="default">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <div class="container">
+      <form class="container-cityForm">
+        <div class="cityForm-item">
+          Enter A City: <input class="input" type="text" id="cityField" value=""><br>
+          <span id="messageHandler"></span>
+        </div>
+        <div class="cityForm-item">
+          <input class="refreshButton" id="refreshButton" type="submit" value="Submit">
+        </div>
+      </form>
+    </div>
+    <div class="container">
+      <div class="weather" id="weatherResults">
         
-    </script>
+      </div>
+    </div>
+    <div class="container">
+      <div class="forecast" id="forecastResults">
+        
+      </div>
+    </div>
+    <div class="footer">
+      <div class="footer-title" href="https://github.com/BryceCoop99/CS260">https://github.com/BryceCoop99/CS260</div>
+    </div>
+  </body>
+  <script>
+  // API for OpenWeatherMap 675fbc2ce201888c9f5b0fbbd31c9665
+    document.getElementById("refreshButton").addEventListener("click", function(event) {
+      event.preventDefault();
+      const cityInput = document.getElementById("cityField").value;
+      if (cityInput === "") {
+        return;
+      }
+      const url = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInput
+      + ",US&units=imperial" + "&APPID=675fbc2ce201888c9f5b0fbbd31c9665";
+      fetch(url)
+        .then(function(response) {
+          return response.json();
+        }).then(function(json) {
+          console.log(json);
+          let results = "";
+          results += "<h2>" + json.name + "</h2>";
+          for (let i=0; i < json.weather.length; i++) {
+            results += '<img src="http://openweathermap.org/img/w/' + json.weather[i].icon + '.png"/>';
+          }
+          results += '<h2>' + Math.round(json.main.temp) + " &deg;F</h2>"
+          results += '<h3>Max: ' + Math.round(json.main.temp_max) + " &deg;F</h3>"
+          results += '<h3>Min: ' + Math.round(json.main.temp_min) + " &deg;F</h3>"
+          results += "<p>Current Weather: "
+          for (let i=0; i < json.weather.length; i++) {
+            results += json.weather[i].description
+            if (i !== json.weather.length - 1)
+              results += ", "
+          }
+          results += "</p>";
+          document.getElementById("weatherResults").innerHTML = results;
+        });
+        
+        
+      const url2 = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityInput 
+      + ", US&units=imperial" + "&APPID=675fbc2ce201888c9f5b0fbbd31c9665";
+      fetch(url2)
+        .then(function(response) {
+          return response.json();
+        }).then(function(json) {
+          let result = '<div class="table">';
+          result += '<div class="table-title">5 Day Forecast</div>';
+          let listOfDays = [];
+          
+          for (let i=0; i < json.list.length; i++) {
+            let day = moment(json.list[i].dt_txt).format('dddd');
+            if (!listOfDays.includes(day)) {
+              listOfDays.push(day);
+            }
+          }
+          
+          let index = 0;
+          for (let i=0; i < listOfDays.length; i++) {
+            let day = listOfDays[i];
+            result += '<div class="table-row">';
+            result += '<div class="table-day">' + day + '</div>';
+            
+            while (1) {
+              if (index == 39) {
+                break;
+              }
+              
+              let newDay = moment(json.list[index].dt_txt).format('dddd');
+              
+              if (day === newDay) {
+                result += '<div class="cell">';
+                let time = moment(json.list[index].dt_txt).format('h:mm a');
+                let temp = Math.round(json.list[index].main.temp);
+                // let temp_min = Math.round(json.list[index].main.temp_min);
+                // let temp_max = Math.round(json.list[index].main.temp_max);
+                result += '<div class="row-time">' + time + '</div>';
+                
+                result += '<div class="row-temps">';
+                result += '<div class="row-temp">' + temp + ' &deg;F</div>';
+                result += '<img src="http://openweathermap.org/img/w/' + json.list[index].weather[0].icon + '.png"/>';
+                // result += '<div class="row-temp-min">' + temp_min + '</div>';
+                // result += '<div class="row-temp-max">' + temp_max + '</div>';
+                
+                result += '</div>';
+                result += '</div>';
+                index += 1;
+              } else {
+                break;
+              }
+            }
+            
+            result += '</div>';
+          }
+          
+            result += '</div>';
+          document.getElementById("forecastResults").innerHTML = result;
+        });
+    });
+  </script>
     
 </html>
