@@ -51,14 +51,14 @@
           for (let i=0; i < json.weather.length; i++) {
             results += '<img src="http://openweathermap.org/img/w/' + json.weather[i].icon + '.png"/>';
           }
-          results += '<h2>' + Math.round(json.main.temp) + " &deg;F</h2>"
-          results += '<h3>Max: ' + Math.round(json.main.temp_max) + " &deg;F</h3>"
-          results += '<h3>Min: ' + Math.round(json.main.temp_min) + " &deg;F</h3>"
-          results += "<p>Current Weather: "
+          results += '<h2>' + Math.round(json.main.temp) + " &deg;F</h2>";
+          results += '<h3>Max: ' + Math.round(json.main.temp_max) + " &deg;F</h3>";
+          results += '<h3>Min: ' + Math.round(json.main.temp_min) + " &deg;F</h3>";
+          results += "<p>Current Weather: ";
           for (let i=0; i < json.weather.length; i++) {
-            results += json.weather[i].description
+            results += json.weather[i].description;
             if (i !== json.weather.length - 1)
-              results += ", "
+              results += ", ";
           }
           results += "</p>";
           document.getElementById("weatherResults").innerHTML = results;
@@ -71,6 +71,7 @@
         .then(function(response) {
           return response.json();
         }).then(function(json) {
+          console.log(json);
           let result = '<div class="table">';
           result += '<div class="table-title">5 Day Forecast</div>';
           let listOfDays = [];
@@ -89,7 +90,7 @@
             result += '<div class="table-day">' + day + '</div>';
             
             while (1) {
-              if (index == 39) {
+              if (index == 40) {
                 break;
               }
               
