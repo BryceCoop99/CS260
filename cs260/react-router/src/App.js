@@ -7,7 +7,7 @@ import Contact from "./pages/Contact";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="CS260/cs260/react-router/build">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -19,6 +19,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);

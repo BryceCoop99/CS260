@@ -309,9 +309,11 @@ a {
 }
 
 .nav-item a:selected, .nav-item a:active, .nav-item a:focus {
+  color: #f7e9de;
 }
 
 .page-button a:selected, .page-button a:active, .page-button a:focus {
+  color: #f7e9de;
 }
 
 /* Scrollbar */
