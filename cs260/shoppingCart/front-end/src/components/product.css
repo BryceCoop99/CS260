@@ -1,0 +1,19 @@
+.product {
+  display: flex;
+  flex-wrap: wrap;
+  flow-direction: row;
+  margin-top: 20px;
+  align-items: center;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.product-name {
+  font-size: 1.3rem;
+}
+.product.price {
+  font-weight: bold;
+}
+.button {
+  font-size: .8rem;
+}

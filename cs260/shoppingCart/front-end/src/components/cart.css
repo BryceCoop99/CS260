@@ -1,0 +1,21 @@
+.item {
+  display: flex;
+  flex-wrap: wrap;
+  flow-direction: row;
+  margin-top: 20px;
+  width: 100%;
+  align-items: center;
+}
+
+.item-product{
+  font-size: 1rem;
+}
+.item-quantity {
+  margin-left: 5px;
+  font-size: 1rem;
+}
+
+.button {
+  margin: 0 5px;
+  min-width: 5px;
+}
